@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>Random Fact Generator</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+<form>
+  <button type="button" id="B">get a random fact</button>
+<span id="fact"></span>
+</form>
+<script>
+$( "#B" ).click(function() {
+  var rand = Math.floor(Math.random() * 104);
+  var url = "getfact?q="+rand.toString();
+  $.getJSON(url,function(data) {
+    console.log(data[0].fact);
+    var toDisplay = data[0].fact;
+  
+
+    
+    
+    var everything = "<h2>"
+    everything += data[0].fact;
+    everything+="</h2>";
+    $("#fact").html(everything);
+  });
+});
+
+</script>
+
+
+
+</body>
+</html>
