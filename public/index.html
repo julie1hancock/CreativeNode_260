@@ -2,30 +2,106 @@
 <head>
 <title>Random Fact Generator</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style type="text/css">
+  body{
+    background-color:grey;
+  }
+  blockquote {
+      font-family: Georgia, serif;
+      font-size: 300%;
+      font-style: italic;
+      position: relative;
+      color: #ecbc77;
+  }
+  blockquote cite:before {
+      content: "\2014 \2009";
+  }
+  blockquote cite {
+      color: #ecbc77;
+      font-size: 50%
+  }
 
+
+  p{
+    font-size:275%;
+    color:#2c395c;
+    text-align:center;
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+  img{
+    border:50px solid  	#801040;
+    width:70%;
+  }
+  
+  
+</style>
 </head>
 <body>
 <form>
-  <button type="button" id="B">get a random fact</button>
-<span id="fact"></span>
+  <button type="button" id="FACT">get a random fact</button>
+  <button type="button" id="QUOTE">get a random gen conf quote</button>
+  <button type="button" id="PIC">click for a surprise</button>
+  <button type="button" id="RESET">reset</button>
+
+<br>
+<span id="xx"></span>
 </form>
 <script>
-$( "#B" ).click(function() {
+$( "#FACT" ).click(function() {
+  document.body.style.cssText = 'background-color: 	 	#b9a727	';
+
   var rand = Math.floor(Math.random() * 104);
   var url = "getfact?q="+rand.toString();
   $.getJSON(url,function(data) {
-    console.log(data[0].fact);
     var toDisplay = data[0].fact;
-  
-
     
-    
-    var everything = "<h2>"
+    var everything = "<br><br><p>"
     everything += data[0].fact;
-    everything+="</h2>";
-    $("#fact").html(everything);
+    everything+="</p>";
+    $("#xx").html(everything);
   });
 });
+
+$( "#QUOTE" ).click(function() {
+  var rand = Math.floor(Math.random() * 46);
+  var url = "getquote?q="+rand.toString();
+  $.getJSON(url,function(data) {
+    var toDisplay = data[0].fact;
+    console.log(data[0]);
+
+    
+    var everything = "<br><br><blockquote>"
+    everything += data[0].fact;
+    everything+="<footer><cite>"
+    everything+= data[0].cite;
+    everything+= "</cite></footer></blockquote>";
+    $("#xx").html(everything);
+    document.body.style.cssText = 'background-color: 	#876209;';
+
+  });
+});
+
+$( "#PIC" ).click(function() {
+
+  var rand = Math.floor(Math.random() * 30);
+  var url = "getimg?q="+rand.toString();
+  $.getJSON(url,function(data) {
+    var toDisplay = data[0].fact;
+    var everything = "<img src=\""
+    everything += data[0].fact;
+    everything += "\" alt=\"baby animal\">";
+    $("#xx").html(everything);
+      document.body.style.cssText = 'background-color: 	#405858;';
+
+  });
+});
+
+$( "#RESET" ).click(function() {
+    $("#xx").html("");
+    document.body.style.cssText = 'background-color:grey;';
+
+});
+
 
 </script>
 
